@@ -3,11 +3,10 @@
 #include<fstream>
 #include<stdlib.h>
 using namespace std;
-int main() {
-	int n, m, sit;
-	float U, R_1, R_2, R_3, R_4, I;
+float Calculation(int sit, float U, float R_1, float R_2,float R_3, float R_4) {
+	int n, m;
+	float I;
 	double a[3][4];
-	cin >> sit >> U >> R_1 >> R_2 >> R_3 >> R_4;
 	if (sit == 1) {
 		a[0][0] = R_1 + R_2;
 		a[0][1] = -R_1;
@@ -83,5 +82,13 @@ int main() {
 		}
 	}
 	I = a[0][3];
+	return I;
+}
+int main() {
+	int sit;
+	float U, R_1, R_2, R_3, R_4, I;
+	cin >> sit >> U >> R_1 >> R_2 >> R_3 >> R_4;
+	I = Calculation(sit, U, R_1, R_2, R_3, R_4);
 	cout << "电流大小为：" << I << endl;
+	return 0;
 }
