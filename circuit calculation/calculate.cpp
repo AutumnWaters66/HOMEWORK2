@@ -87,6 +87,7 @@ float Calculation(int sit, float U, float R_1, float R_2,float R_3, float R_4) {
 int main() {
 	int sit;
 	float U, R_1, R_2, R_3, R_4, I;
+	cout << "Please enter the value of sit, U, R1, R2, R3, R4 in order :";
 	cin >> sit >> U >> R_1 >> R_2 >> R_3 >> R_4;
 	I = Calculation(sit, U, R_1, R_2, R_3, R_4);
 	cout << "电流大小为：" << I << endl;
