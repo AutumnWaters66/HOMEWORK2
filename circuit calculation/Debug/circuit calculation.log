@@ -1,0 +1,3 @@
+﻿  calculate.cpp
+C:\Users\Administrator\Desktop\大二工程训练营\第二次课材料\第二次作业\calculator\HOMEWORK2\circuit calculation\calculate.cpp(188,12): warning C4244:  “=”: 从“double”转换到“float”，可能丢失数据
+  circuit calculation.vcxproj -> C:\Users\Administrator\Desktop\大二工程训练营\第二次课材料\第二次作业\calculator\HOMEWORK2\circuit calculation\Debug\circuit calculation.exe

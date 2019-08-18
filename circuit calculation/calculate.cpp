@@ -1,13 +1,119 @@
+/**
+ * @file Circuilt Calculator
+ * @brief 电流计算器
+ * @details 基于基尔霍夫定律和矩阵运算计算给定电路中电流值
+ * @mainpage Circuilt Calculator
+ * @author LGY's team
+ * @email 569831010@qq.com
+ * @version 1.0.0
+ * @date 2019-8-16
+ */
 #include<iostream>
 #include<math.h>
 #include<fstream>
 #include<stdlib.h>
+#include <conio.h>
+#include <graphics.h>
+#include <stdio.h>
+
+//#define CATCH_CONFIG_MAIN
+//#include "catch.hpp"
+//TEST_CASE("I is computed", "[calculation]") {
+	//REQUIRE(Calculation(1, 1, 1, 1, 1, 1) == 1);
+//}
 using namespace std;
-float Calculation(int sit, float U, float R_1, float R_2,float R_3, float R_4) {
+
+
+ /**
+ * @brief A calculator for electric current , labeled as I.
+ */
+class Calculation
+{
+public:
+	/// Choose the first or second image given.
+	int type;
+	/// Insert an integer in the UI surface to decide to calculate which type of circuits.
+	int input;
+	/// Assign a value for voltage , labeled as U.
+	float U;
+	/// Assign a value for R1.
+	float R_1;
+	/// Assign a value for R2.
+	float R_2;
+	/// Assign a value for R3.
+	float R_3;
+	/// Assign a value for R4.
+	float R_4;
+	float I;
+	void init();
+	void out();
+	float calculate();
+};
+/**
+ * @brief To initialize all the parameters needed in the calculator.
+ */
+void Calculation::init() {
+	cout << "Please enter the value of U(/V), R1(/Ω), R2(/Ω), R3(/Ω), R4(/Ω) in order :";
+	cin >> U >> R_1 >> R_2 >> R_3 >> R_4;
+}
+/**
+ * @brief To systhesize all parts in the program , including parameter init, UI surface and calculation.
+ */
+void Calculation::out() {
+	initgraph(640, 480);   // 这里和 TC 略有区别
+	IMAGE starup_window;
+	loadimage(&starup_window, _T("资源文件夹\\登陆界面.jpg"), 640, 480);
+	putimage(0, 0, 640, 480, &starup_window, 0, 0);
+
+
+	IMAGE circuit1;
+	loadimage(&circuit1, _T("资源文件夹\\图形1.jpg"), 280, 240);
+	putimage(30, 150, 280, 240, &circuit1, 0, 0);
+
+	IMAGE circuit2;
+	loadimage(&circuit2, _T("资源文件夹\\图形2.jpg"), 280, 240);
+	putimage(330, 150, 280, 240, &circuit2, 0, 0);
+
+	TCHAR s1[50];
+	_stprintf_s(s1, _T("电路图形: %d"), 1);
+	outtextxy(100, 100, s1);
+
+	TCHAR s2[50];
+	_stprintf_s(s2, _T("电路图形: %d"), 2);
+	outtextxy(440, 100, s2);
+	FlushBatchDraw();                    //防频闪绘图
+
+loop:
+	input = _getch();
+	if (input == '1')
+	{
+		type = 1;
+		closegraph();
+		init();
+		I = calculate();
+		cout << "电流大小为：" << I << "A" << endl;
+	}
+	if (input == '2')
+	{
+		type = 2;
+		closegraph();
+		init();
+		I = calculate();
+		cout << "电流大小为：" << I << "A" << endl;
+	}
+	else
+	{
+		goto loop;
+	}
+}
+/**
+ * @brief Use all the parameters and matrix calculation to calculate the value of electric current.
+ */
+float Calculation::calculate() {
 	int n, m;
 	float I;
 	double a[3][4];
-	if (sit == 1) {
+	if (type == 1) {
 		a[0][0] = R_1 + R_2;
 		a[0][1] = -R_1;
 		a[0][2] = -R_2;
@@ -84,12 +190,9 @@ float Calculation(int sit, float U, float R_1, float R_2,float R_3, float R_4) {
 	I = a[0][3];
 	return I;
 }
+
 int main() {
-	int sit;
-	float U, R_1, R_2, R_3, R_4, I;
-	cout << "Please enter the value of sit, U, R1, R2, R3, R4 in order :";
-	cin >> sit >> U >> R_1 >> R_2 >> R_3 >> R_4;
-	I = Calculation(sit, U, R_1, R_2, R_3, R_4);
-	cout << "电流大小为：" << I << endl;
+	Calculation cal;
+	cal.out();
 	return 0;
 }
